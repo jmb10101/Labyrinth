@@ -1,0 +1,72 @@
+# =============== #
+# Unity generated #
+# =============== #
+[Tt]emp/
+[Oo]bj/
+[Bb]uild
+[Bb]uild/
+[Bb]uilds/
+/[Ll]ibrary/
+sysinfo.txt
+*.stackdump
+
+Assets/UnityVS/Editor/UnityVS.VersionSpecific.dll
+Assets/UnityVS/Editor/UnityVS.VersionSpecific.dll.meta
+ 
+# ============================================= #
+# Visual Studio / MonoDevelop / Rider generated #
+# ============================================= #
+[Ee]xported[Oo]bj/
+.vs/
+/*.userprefs
+/*.csproj
+/*.pidb
+/*.suo
+/*.sln*
+/*.user
+/*.unityproj
+/*.booproj
+/.idea*/
+ 
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store*
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+[Tt]humbs.db
+[Dd]esktop.ini
+
+# === #
+# MGS #
+# === #
+tmp/
+Assets/tmp/
+Assets/tmp.meta
+
+# === #
+# ASC #
+# === #
+Assets/Images/UI/HUB/HUBTinker.psd
+Assets/Images/UI/HUB/HUBTinker.psd.meta
+Assets/Images/WorldMap/WorldMap-Practical.psd
+Assets/Images/WorldMap/WorldMap-Practical.psd.meta
+Assets/Images/WorldMap/WorldMap.psd
+Assets/Images/WorldMap/WorldMap.psd.meta
+Assets/Images/WorldMap/ps145B.tmp
+Assets/Images/WorldMap/WorldMap-3.psd
+Assets/Images/WorldMap/WorldMap-3.psd.meta
+Assets/Images/UI/HUB/Map/MapBorder-2.psd
+Assets/Images/UI/HUB/Map/MapBorder-2.psd.meta
+Assets/Shaders/SpriteShadersForReference/Editor/
+Assets/Shaders/SpriteShadersForReference/Editor.meta
+Assets/Images/Environment/AscendantPrimary/Terrain/MountainRockFull_AP-Old.psd
+Assets/Images/Environment/AscendantPrimary/Terrain/MountainRockFull_AP-Old.psd.meta
+Assets/Images/Environment/MountainEnvironmentBoard.psd
+Assets/Materials/Enemies/Apocrya/HarvestTemple.meta
+Assets/Prefabs/FX/TakeDamage/Environment/Cave.meta
+Assets/ShaderoSprite/Plugins/Shadero_Projects/FX.meta
+Assets/Images/Characters/Amy/AmyCharacterPortrait.psd.meta
+Assets/Images/Characters/Amy.meta
