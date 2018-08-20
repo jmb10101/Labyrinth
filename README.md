@@ -1,2 +1,2 @@
 # Labyrinth
-Procedural maze generation demonstrating path finding.
+Procedural maze generation demonstrating path finding in Unity.
