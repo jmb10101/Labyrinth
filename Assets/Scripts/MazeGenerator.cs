@@ -33,16 +33,17 @@ public class MazeGenerator : MonoBehaviour {
 
             // DEBUG: draw path
             string outStr = "";
-            foreach (Vector2 pt in path)
+            if (path != null)
             {
-                outStr += pt;
-                GameObject block = Instantiate(pathBreadcrumb, new Vector3(pt.x, 0.5f, pt.y), Quaternion.identity);
-                block.SetActive(true);
-                block.name = "block(path)";
-                _blocks.Add(block);
+                foreach (Vector2 pt in path)
+                {
+                    outStr += pt;
+                    GameObject block = Instantiate(pathBreadcrumb, new Vector3(pt.x, 0.5f, pt.y), Quaternion.identity);
+                    block.SetActive(true);
+                    block.name = "block(path)";
+                    _blocks.Add(block);
+                }
             }
-                
-
             Debug.Log(outStr);
         }
 	}
@@ -59,7 +60,16 @@ public class MazeGenerator : MonoBehaviour {
         Vector3 p0 = transform.position;
         float r = unitSize;
         float r2 = r * 2;
-        Vector3 botLeft = p0 + new Vector3( -Mathf.Floor(mazeSize.x / 2) * r2, 0.5f, -Mathf.Floor(mazeSize.y / 2) * r2);
+        Vector3 botLeft = p0 + new Vector3(-Mathf.Floor(mazeSize.x / 2) * r2, 0.5f, -Mathf.Floor(mazeSize.y / 2) * r2);
+
+        // create empty maze to start with
+        for (int x = 0; x < mazeSize.x; x++)
+        {
+            for (int y = 0; y < mazeSize.y; y++)
+            {
+                _grid.AddNode(new Node(botLeft + new Vector3(x * r2, 0, y * r2), new Vector2I(x, y), true, false));
+            }
+        }
 
         // create maze
         for (int x=0; x<mazeSize.x; x++)
@@ -71,18 +81,34 @@ public class MazeGenerator : MonoBehaviour {
                 Vector3 p = botLeft + new Vector3(x * r2, 0, y * r2);
 
                 // generate block if needed
-                if (isEdge)
+                GameObject block = null;
+                if (isEdge || Random.Range(0, 2) == 0)
                 {                  
                     traversable = false;
-                    GameObject block = Instantiate(cubeUnit, p, Quaternion.identity);
+                    block = Instantiate(cubeUnit, p, Quaternion.identity);
                     block.SetActive(true);
                     block.name = "block(" + x + ", " + y + ")";
                     _blocks.Add(block);
                 }
 
                 // add node to grid
-                Node node = new Node(p, new Vector2I(x, y), traversable);
+                Node node = new Node(new Vector2(p.x, p.z), new Vector2I(x, y), traversable, isEdge);
                 _grid.AddNode(node);
+
+                // test path to make sure finish is accessible from start
+                if (!traversable && !isEdge)
+                {
+                    Vector2[] path = AStarPathFinder.FindPath(_grid, _grid.grid[1, 1], _grid.grid[mazeSize.x - 2, mazeSize.y - 2], false);
+                    if (path == null)
+                    {
+                        node.traversable = true;
+                        if (block != null)
+                        {
+                            _blocks.Remove(block);
+                            Destroy(block);
+                        }
+                    }
+                }
             }
         }
     }

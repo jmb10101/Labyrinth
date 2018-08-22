@@ -11,6 +11,7 @@ public class Grid {
 
     // properties
     public Node[,] grid { get { return _grid; } }
+    public Vector2I gridSize { get { return _gridSize; } }
 
     public void InitGrid(int x, int y)
     {
@@ -33,8 +34,12 @@ public class Grid {
                 if (x == 0 && y == 0)   // skip current node iteration (center of 9 block)
                     continue;
 
+                // skip corners?
+                if ((x == -1 && y == 1) || (x == 1 && y == 1) || (x == -1 && y == -1) || (x == 1 && y == -1))
+                    continue;
+
                 // ensure the coord we want to check is within the grid bounds
-                Vector2I checkCoord = new Vector2I(node.gridCoords.x + x, node.gridCoords.y + y);
+                    Vector2I checkCoord = new Vector2I(node.gridCoords.x + x, node.gridCoords.y + y);
                 if (checkCoord.x >= 0 && checkCoord.x < _gridSize.x &&
                     checkCoord.y >= 0 && checkCoord.y < _gridSize.y)
                 {
