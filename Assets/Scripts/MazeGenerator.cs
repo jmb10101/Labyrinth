@@ -13,6 +13,7 @@ public class MazeGenerator : MonoBehaviour
     public float unitSize;
     public Vector2I mazeSize;
     public float pathPtLerpSpeed;
+    public float seekerRotSpeed;
 
     private List<GameObject> _blocks;
     private Grid _grid;
@@ -23,6 +24,7 @@ public class MazeGenerator : MonoBehaviour
     private Vector3 _startPathPtPos;
     private bool _camFollow;
     private Vector3 _arialCamPos;
+    private Transform _pathParent;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +34,7 @@ public class MazeGenerator : MonoBehaviour
         _seeker = Instantiate(seeker, Vector3.zero, Quaternion.identity).GetComponent<Transform>();
         _seeker.gameObject.SetActive(true);
         _arialCamPos = cam.transform.position;
+        _pathParent = new GameObject("PathParent").transform;
 
         Generate();
 	}
@@ -50,16 +53,34 @@ public class MazeGenerator : MonoBehaviour
         {
             _camFollow = !_camFollow;
             if (!_camFollow)
+            {
+                _pathParent.gameObject.SetActive(true);
                 cam.transform.position = _arialCamPos;
+                cam.transform.forward = Vector3.down;
+                foreach (MeshRenderer mr in _seeker.GetComponentsInChildren<MeshRenderer>())
+                    mr.enabled = true;
+            }
+            else
+            {
+                _pathParent.gameObject.SetActive(false);
+                foreach (MeshRenderer mr in _seeker.GetComponentsInChildren<MeshRenderer>())
+                    mr.enabled = false;
+            }   
         }
 
-        // update seeker position along path
+        // update seeker position and rotation along path
         if (_path != null && _pathPtSeekIdx < _path.Length)
         {
+            // move
             Vector3 endPt = new Vector3(_path[_pathPtSeekIdx].x, 0.5f, _path[_pathPtSeekIdx].y);
             _pathPtProgress += Time.deltaTime * pathPtLerpSpeed;
             _seeker.position = Vector3.Lerp(_startPathPtPos, endPt, _pathPtProgress);
 
+            // rotate
+            Vector3 facing = (endPt - _startPathPtPos).normalized;
+            _seeker.right = Vector3.RotateTowards(_seeker.right, facing, Time.deltaTime * seekerRotSpeed * Mathf.Deg2Rad, 0);
+
+            // increment path pt
             if (_pathPtProgress >= 1)
             {
                 _startPathPtPos = endPt;
@@ -71,7 +92,8 @@ public class MazeGenerator : MonoBehaviour
         // update cam position
         if (_camFollow)
         {
-            cam.transform.position = new Vector3(_seeker.position.x, 10, _seeker.position.z);
+            cam.transform.position = new Vector3(_seeker.position.x, 0.5f, _seeker.position.z);
+            cam.transform.forward = _seeker.right;
         }
 	}
 
@@ -148,10 +170,11 @@ public class MazeGenerator : MonoBehaviour
             // draw path
             foreach (Vector2 pt in _path)
             {
-                GameObject block = Instantiate(pathBreadcrumb, new Vector3(pt.x, 0.5f, pt.y), Quaternion.identity);
-                block.SetActive(true);
-                block.name = "block(path)";
-                _blocks.Add(block);
+                GameObject curPt = Instantiate(pathBreadcrumb, new Vector3(pt.x, 0.5f, pt.y), Quaternion.identity);
+                curPt.SetActive(true);
+                curPt.transform.parent = _pathParent;
+                curPt.name = "block(path)";
+                _blocks.Add(curPt);
             }
 
             // reset path seeker values

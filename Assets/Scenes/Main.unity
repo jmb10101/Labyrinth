@@ -156,7 +156,7 @@ Camera:
   m_GameObject: {fileID: 14511958}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -234,6 +234,7 @@ MonoBehaviour:
     x: 20
     y: 20
   pathPtLerpSpeed: 2
+  seekerRotSpeed: 180
 --- !u!4 &324015770
 Transform:
   m_ObjectHideFlags: 0
@@ -402,6 +403,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4123962317892848, guid: 7adf28f2de5f22e46b3bd45a64ffb35b, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400750601917326, guid: 7adf28f2de5f22e46b3bd45a64ffb35b, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -576,10 +581,6 @@ Prefab:
     - target: {fileID: 4944048908868762, guid: 8a168f9c4e3a3994c983765eef6eb646, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1811920735252126, guid: 8a168f9c4e3a3994c983765eef6eb646, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a168f9c4e3a3994c983765eef6eb646, type: 2}
