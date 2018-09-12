@@ -84,7 +84,7 @@ public static class AStarPathFinder
         List<Node> path = new List<Node>();
         Node currentNode = endNode;
 
-        while (currentNode != startNode && currentNode != null)
+        while (currentNode != null)
         {
             path.Add(currentNode);
             currentNode = currentNode.parent;
