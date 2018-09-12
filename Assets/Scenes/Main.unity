@@ -234,7 +234,7 @@ MonoBehaviour:
     x: 20
     y: 20
   pathPtLerpSpeed: 2
-  seekerRotSpeed: 180
+  seekerRotSpeed: 360
 --- !u!4 &324015770
 Transform:
   m_ObjectHideFlags: 0
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 1912358942}
   - component: {fileID: 1912358941}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,6 +581,10 @@ Prefab:
     - target: {fileID: 4944048908868762, guid: 8a168f9c4e3a3994c983765eef6eb646, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811920735252126, guid: 8a168f9c4e3a3994c983765eef6eb646, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a168f9c4e3a3994c983765eef6eb646, type: 2}

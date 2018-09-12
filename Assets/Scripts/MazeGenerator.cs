@@ -141,6 +141,18 @@ public class MazeGenerator : MonoBehaviour
                     _blocks.Add(block);
                 }
 
+                // delete start and finish blocks
+                if ((x == mazeSize.x - 1 && y == mazeSize.y -1) ||
+                    (x == mazeSize.x - 1 && y == mazeSize.y - 2) ||
+                    (x == mazeSize.x - 2 && y == mazeSize.y - 1))
+                {
+                    if (block != null)
+                    {
+                        _blocks.Remove(block);
+                        Destroy(block);
+                    }
+                }
+
                 // add node to grid
                 Node node = new Node(new Vector2(p.x, p.z), new Vector2I(x, y), traversable, isEdge);
                 _grid.AddNode(node);
